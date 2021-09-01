@@ -1,17 +1,16 @@
-using System;
 using UnityEngine;
 
-public class Collide : MonoBehaviour
+public class GridCollision : MonoBehaviour
 {
     [SerializeField] private FoodController food;
     private Board board;
-    private Body body;
-    private UIcontroller UIcontroller;
+    private BodyController _bodyController;
+    private UserInterface userInterface;
 
     private void Start()
     {
-        body = GetComponent<Body>();
-        UIcontroller = GetComponent<UIcontroller>();
+        _bodyController = GetComponent<BodyController>();
+        userInterface = GetComponent<UserInterface>();
     }
 
     private void Update()
@@ -19,9 +18,9 @@ public class Collide : MonoBehaviour
         board = food.transform.parent.GetComponent<Board>();
         if (CheckPosition(board.WorldToGrid(food.transform.position)) && food.IsVisible)
         {
-            UIcontroller.Score += 1;
+            userInterface.Score += 1;
             food.MakeVisible(false);
-            body.AddBodyParts();
+            _bodyController.AddBodyParts();
         }
     }
 

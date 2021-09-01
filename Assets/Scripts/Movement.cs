@@ -6,7 +6,7 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     [SerializeField] private Board board;
-    private Body body;
+    private BodyController bodyController;
     
     public static readonly List<Vector2Int> directions = new List<Vector2Int>
             {Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right};
@@ -15,7 +15,7 @@ public class Movement : MonoBehaviour
 
     private void Awake()
     {
-        body = GetComponent<Body>();
+        bodyController = GetComponent<BodyController>();
     }
 
     public void OnInput(Vector2Int dir)
@@ -23,7 +23,7 @@ public class Movement : MonoBehaviour
         if (dir != -direction)
         {
             direction = dir;
-            FlipSprite();
+            FlipSprite(transform, direction);
         }
     }
     
@@ -44,7 +44,7 @@ public class Movement : MonoBehaviour
         Vector3 position = board.GridToWorld(positionOnBoard);
         if (position != transform.position)
         {
-            body.MoveBodyParts();
+            bodyController.MoveBodyParts();
         }
         transform.position = position;
     }
@@ -56,23 +56,23 @@ public class Movement : MonoBehaviour
         return pos;
     }
 
-    private void FlipSprite()
+    public void FlipSprite(Transform obj, Vector2Int dir)
     {
-        if (direction == directions[0])
+        if (dir == directions[0])
         {
-            transform.eulerAngles = new Vector3(0, 0, -90);
+            obj.transform.eulerAngles = new Vector3(0, 0, -90);
         }
-        else if (direction == directions[1])
+        else if (dir == directions[1])
         {
-            transform.eulerAngles = new Vector3(0, 0, 90);
+            obj.transform.eulerAngles = new Vector3(0, 0, 90);
         }
-        else if (direction == directions[2])
+        else if (dir == directions[2])
         {
-            transform.eulerAngles = new Vector3(0, 0, 0);
+            obj.transform.eulerAngles = new Vector3(0, 0, 0);
         }
-        else if (direction == directions[3])
+        else if (dir == directions[3])
         {
-            transform.eulerAngles = new Vector3(0, 180, 0);
+            obj.transform.eulerAngles = new Vector3(0, 180, 0);
         }
     }
 }

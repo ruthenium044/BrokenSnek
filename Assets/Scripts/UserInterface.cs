@@ -1,10 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIcontroller : MonoBehaviour
+public class UserInterface : MonoBehaviour
 {
     [SerializeField] private Text highScoreText;
     [SerializeField] private Text scoreText;
