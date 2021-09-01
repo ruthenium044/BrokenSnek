@@ -36,18 +36,11 @@ public class BodyController : MonoBehaviour
             {
                 bodyParts[i].GetComponent<SpriteRenderer>().sprite = body;
             }
+            Vector3 temp = bodyParts[i - 1].transform.position - bodyParts[i].transform.position;
+            temp = temp.normalized;
+            movement.FlipSprite(bodyParts[i].transform, new Vector2Int((int) temp.x, (int) temp.y));
+            
             bodyParts[i].transform.position = bodyParts[i - 1].transform.position;
-
-            /*if (bodyParts[i].TryGetComponent(out Body body1))
-            {
-                if (bodyParts[i - 1].TryGetComponent(out Body body2))
-                {
-                    body1.Direction = body2.Direction;
-                }
-            }*/
-            //bodyParts[i].GetComponent<Body>().Direction = bodyParts[i - 1].GetComponent<Body>().Direction;
-            //movement.FlipSprite(bodyParts[i].transform, bodyParts[i].GetComponent<Body>().Direction);
-           
         }
     }
     
