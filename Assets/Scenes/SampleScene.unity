@@ -522,6 +522,8 @@ GameObject:
   - component: {fileID: 1250501360}
   - component: {fileID: 1250501363}
   - component: {fileID: 1250501364}
+  - component: {fileID: 1250501365}
+  - component: {fileID: 1250501366}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -633,6 +635,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   food: {fileID: 993617502}
+--- !u!114 &1250501365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1250501359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b53d5a54faa5254999a26299c915c26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointsText: {fileID: 404709739}
+--- !u!114 &1250501366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1250501359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b1d8d025476b494996ce200965ea047, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bodyPrefab: {fileID: 2576082140883849357, guid: d942adf34683c3e4389ddd116e47fa68, type: 3}
 --- !u!1 &1928887974
 GameObject:
   m_ObjectHideFlags: 0
