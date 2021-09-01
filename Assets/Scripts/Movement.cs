@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,12 +6,18 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     [SerializeField] private Board board;
+    private Body body;
     
     public static readonly List<Vector2Int> directions = new List<Vector2Int>
             {Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right};
     private Vector2Int direction;
     private float timeBetweenSteps = 0.4f;
-    
+
+    private void Awake()
+    {
+        body = GetComponent<Body>();
+    }
+
     public void OnInput(Vector2Int dir)
     {
         if (dir != -direction)
@@ -35,7 +42,11 @@ public class Movement : MonoBehaviour
         positionOnBoard += dir;
         positionOnBoard = ClampToBounds(positionOnBoard);
         Vector3 position = board.GridToWorld(positionOnBoard);
-        transform.position =  position;
+        if (position != transform.position)
+        {
+            body.MoveBodyParts();
+        }
+        transform.position = position;
     }
 
     Vector2Int ClampToBounds(Vector2Int pos)

@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class Body : MonoBehaviour
@@ -11,14 +10,19 @@ public class Body : MonoBehaviour
     void Start()
     {
         bodyParts.Add(gameObject);
-        
     }
 
-    public void AddBody()
+    public void AddBodyParts()
     {
         GameObject temp = Instantiate(bodyPrefab, transform.position, Quaternion.identity);
         bodyParts.Add(temp);
     }
-    
-    
+
+    public void MoveBodyParts()
+    {
+        for (int i = bodyParts.Count - 1; i > 0; i--)
+        {
+            bodyParts[i].transform.position = bodyParts[i - 1].transform.position;
+        }
+    }
 }

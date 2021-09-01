@@ -7,7 +7,6 @@ public class Collide : MonoBehaviour
     private Board board;
     private Body body;
     private UIcontroller UIcontroller;
-    
 
     private void Start()
     {
@@ -20,9 +19,9 @@ public class Collide : MonoBehaviour
         board = food.transform.parent.GetComponent<Board>();
         if (CheckPosition(board.WorldToGrid(food.transform.position)) && food.IsVisible)
         {
-            UIcontroller.Points += 1;
+            UIcontroller.Score += 1;
             food.MakeVisible(false);
-            body.AddBody();
+            body.AddBodyParts();
         }
     }
 
