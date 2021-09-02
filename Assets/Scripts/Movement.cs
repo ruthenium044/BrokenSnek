@@ -46,11 +46,10 @@ public class Movement : MonoBehaviour
         if (IsOutOfBounds(positionOnBoard))
         {
             death.GameOver = true;
-            Debug.Log("LOst");
         }
-        
         positionOnBoard = ClampToBounds(positionOnBoard);
         Vector3 position = board.GridToWorld(positionOnBoard);
+        
         if (position != transform.position)
         {
             bodyController.MoveBodyParts();
@@ -61,12 +60,8 @@ public class Movement : MonoBehaviour
 
     private bool IsOutOfBounds(Vector2Int pos)
     {
-        if (pos.x < 0 && pos.x > board.BoardSize.x - 1)
+        if (pos.x < 0 || pos.x > board.BoardSize.x - 1 || pos.y < 0 || pos.y > board.BoardSize.y - 1)
         {
-            if (pos.y < 0 && pos.y > board.BoardSize.y - 1)
-            {
-                return true;
-            }
             return true;
         }
         return false;
