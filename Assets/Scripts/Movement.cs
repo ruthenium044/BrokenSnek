@@ -12,6 +12,8 @@ public class Movement : MonoBehaviour
     public static readonly List<Vector2Int> directions = new List<Vector2Int>
             {Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right};
     private Vector2Int direction;
+    private Vector2Int inputDirection;
+
     private float timeBetweenSteps = 0.4f;
 
     private void Awake()
@@ -24,8 +26,8 @@ public class Movement : MonoBehaviour
     {
         if (dir != -direction)
         {
-            direction = dir;
-            FlipSprite(transform, direction);
+            inputDirection = dir;
+            FlipSprite(transform, inputDirection);
         }
     }
     
@@ -33,19 +35,21 @@ public class Movement : MonoBehaviour
     {
         while (!death.GameOver)
         {
-            Move(direction);
+            Move(inputDirection);
             yield return new WaitForSeconds (timeBetweenSteps);
         }
     }
     
     private void Move(Vector2Int dir)
     {
+        direction = dir;
+        
         Vector2Int positionOnBoard = board.WorldToGrid(transform.position);
         positionOnBoard += dir;
 
         if (IsOutOfBounds(positionOnBoard))
         {
-            death.GameOver = true;
+            death.ExecuteSnake();
         }
         positionOnBoard = ClampToBounds(positionOnBoard);
         Vector3 position = board.GridToWorld(positionOnBoard);

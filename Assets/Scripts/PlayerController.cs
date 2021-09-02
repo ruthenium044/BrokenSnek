@@ -3,11 +3,13 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Movement movement = null;
+    private AudioController audio;
     public Vector2Int prevDirection = Vector2Int.zero;
     
     private void Start()
     {
         movement = GetComponent<Movement>();
+        audio = GetComponent<AudioController>();
         movement.OnInput(Movement.directions[0]);
         StartCoroutine(movement.MoveOneStep());
     }

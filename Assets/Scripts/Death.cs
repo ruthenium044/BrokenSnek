@@ -3,12 +3,18 @@ using UnityEngine;
 
 public class Death : MonoBehaviour
 {
+    private AudioController audio;
     private bool gameOver = false;
     
     public bool GameOver
     {
         get => gameOver;
-        set => gameOver = value;
+    }
+    
+    public void ExecuteSnake()
+    {
+        gameOver = true;
+        GetComponent<AudioController>().Play(0);
     }
     
 }
