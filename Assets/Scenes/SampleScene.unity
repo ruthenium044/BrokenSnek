@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilePrefab: {fileID: 6667941512878598137, guid: 5c7ede8e6e56e7a41becae68f1fe5ff2, type: 3}
-  boardSize: {x: 16, y: 9}
+  boardSize: {x: 17, y: 9}
   tileSize: 1
 --- !u!4 &283234918
 Transform:
@@ -342,10 +342,6 @@ PrefabInstance:
     - target: {fileID: 5941215786224867116, guid: fb0c0a928a0307a418f99e9744e64660, type: 3}
       propertyPath: m_Name
       value: Food
-      objectReference: {fileID: 0}
-    - target: {fileID: 5941215786224867116, guid: fb0c0a928a0307a418f99e9744e64660, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9061520857153420979, guid: fb0c0a928a0307a418f99e9744e64660, type: 3}
       propertyPath: m_RootOrder

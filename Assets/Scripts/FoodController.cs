@@ -10,7 +10,14 @@ public class FoodController : MonoBehaviour
     private Vector2 timeFoodDeSpawn = new Vector2(1f, 3f);
 
     private SpriteRenderer spriteRenderer;
-    private  bool isVisible = false;
+    private  bool isVisible;
+    private bool canSpawn = true;
+
+    public bool CanSpawn
+    {
+        get => canSpawn;
+        set => canSpawn = value;
+    }
 
     public bool IsVisible
     {
@@ -29,7 +36,7 @@ public class FoodController : MonoBehaviour
 
     IEnumerator SpawnFood()
     {
-        while (true)
+        while (CanSpawn) //TODO need to execute game over here somehow
         {
             PlaceFood(new Vector2Int(Random.Range(0, board.BoardSize.x - 1), Random.Range(0, board.BoardSize.y - 1)));
             yield return new WaitForSeconds (Random.Range(timeFoodSpawn.x, timeFoodSpawn.y));

@@ -4,27 +4,37 @@ public class GridCollision : MonoBehaviour
 {
     [SerializeField] private FoodController food;
     private Board board;
-    private BodyController _bodyController;
+    private BodyController bodyController;
     private UserInterface userInterface;
+    private Death death;
 
     private void Start()
     {
-        _bodyController = GetComponent<BodyController>();
+        board = food.transform.parent.GetComponent<Board>();
+        bodyController = GetComponent<BodyController>();
         userInterface = GetComponent<UserInterface>();
+        death = GetComponent<Death>();
     }
 
     private void Update()
     {
-        board = food.transform.parent.GetComponent<Board>();
-        if (CheckPosition(board.WorldToGrid(food.transform.position)) && food.IsVisible)
+        if (CheckPlayerPosition(board.WorldToGrid(food.transform.position)) && food.IsVisible)
         {
             userInterface.Score += 1;
             food.MakeVisible(false);
-            _bodyController.AddBodyParts();
+            bodyController.AddBodyParts();
+        }
+
+        for (int i = 3; i < bodyController.BodyParts.Count; i++)
+        {
+            if (CheckPlayerPosition(board.WorldToGrid(bodyController.BodyParts[i].transform.position)))
+            {
+                death.GameOver = true;
+            }
         }
     }
 
-    private bool CheckPosition(Vector2Int pos)
+    private bool CheckPlayerPosition(Vector2Int pos)
     {
         if (board.WorldToGrid(transform.position) == pos)
         {

@@ -7,6 +7,7 @@ public class Movement : MonoBehaviour
 {
     [SerializeField] private Board board;
     private BodyController bodyController;
+    private Death death;
     
     public static readonly List<Vector2Int> directions = new List<Vector2Int>
             {Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right};
@@ -16,6 +17,7 @@ public class Movement : MonoBehaviour
     private void Awake()
     {
         bodyController = GetComponent<BodyController>();
+        death = GetComponent<Death>();
     }
 
     public void OnInput(Vector2Int dir)
@@ -29,7 +31,7 @@ public class Movement : MonoBehaviour
     
     public IEnumerator MoveOneStep()
     {
-        while (true)
+        while (!death.GameOver)
         {
             Move(direction);
             yield return new WaitForSeconds (timeBetweenSteps);
@@ -40,18 +42,37 @@ public class Movement : MonoBehaviour
     {
         Vector2Int positionOnBoard = board.WorldToGrid(transform.position);
         positionOnBoard += dir;
+
+        if (IsOutOfBounds(positionOnBoard))
+        {
+            death.GameOver = true;
+            Debug.Log("LOst");
+        }
+        
         positionOnBoard = ClampToBounds(positionOnBoard);
         Vector3 position = board.GridToWorld(positionOnBoard);
         if (position != transform.position)
         {
-            // if thid doesnt happen, diii
             bodyController.MoveBodyParts();
         }
         transform.position = position;
         bodyController.RotateBodyParts();
     }
 
-    Vector2Int ClampToBounds(Vector2Int pos)
+    private bool IsOutOfBounds(Vector2Int pos)
+    {
+        if (pos.x < 0 && pos.x > board.BoardSize.x - 1)
+        {
+            if (pos.y < 0 && pos.y > board.BoardSize.y - 1)
+            {
+                return true;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private Vector2Int ClampToBounds(Vector2Int pos)
     {
         pos.x = Mathf.Clamp(pos.x, 0, board.BoardSize.x - 1);
         pos.y = Mathf.Clamp(pos.y, 0, board.BoardSize.y - 1);

@@ -7,8 +7,9 @@ public class BodyController : MonoBehaviour
 {
     [SerializeField] private GameObject bodyPrefab;
     private List<GameObject> bodyParts = new List<GameObject>();
-    
-    
+
+    public List<GameObject> BodyParts => bodyParts;
+
     [SerializeField] private Sprite body;
     [SerializeField] private Sprite tail;
 
@@ -22,8 +23,7 @@ public class BodyController : MonoBehaviour
     
     public void AddBodyParts()
     {
-        GameObject temp = Instantiate(bodyPrefab, transform.position, Quaternion.identity);
-        
+        GameObject temp = Instantiate(bodyPrefab, bodyParts[bodyParts.Count - 1].transform.position, Quaternion.identity);
         temp.transform.rotation = bodyParts[bodyParts.Count - 1].transform.rotation;
         bodyParts.Add(temp);
     }
