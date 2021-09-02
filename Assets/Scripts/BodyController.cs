@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BodyController : MonoBehaviour
 {
     [SerializeField] private GameObject bodyPrefab;
     private List<GameObject> bodyParts = new List<GameObject>();
-
+    
+    
     [SerializeField] private Sprite body;
     [SerializeField] private Sprite tail;
 
@@ -17,10 +19,12 @@ public class BodyController : MonoBehaviour
         movement = GetComponent<Movement>();
         bodyParts.Add(gameObject);
     }
-
+    
     public void AddBodyParts()
     {
         GameObject temp = Instantiate(bodyPrefab, transform.position, Quaternion.identity);
+        
+        temp.transform.rotation = bodyParts[bodyParts.Count - 1].transform.rotation;
         bodyParts.Add(temp);
     }
 
@@ -36,13 +40,22 @@ public class BodyController : MonoBehaviour
             {
                 bodyParts[i].GetComponent<SpriteRenderer>().sprite = body;
             }
-            Vector3 temp = bodyParts[i - 1].transform.position - bodyParts[i].transform.position;
-            temp = temp.normalized;
-            movement.FlipSprite(bodyParts[i].transform, new Vector2Int((int) temp.x, (int) temp.y));
-            
             bodyParts[i].transform.position = bodyParts[i - 1].transform.position;
         }
     }
+
+    public void RotateBodyParts()
+    {
+        for (int i = bodyParts.Count - 1; i > 0; i--)
+        {
+            FlipSprite(bodyParts[i].transform, bodyParts[i - 1].transform);
+        }
+    }
     
-    
+    private void FlipSprite(Transform currentObj, Transform nextObj)
+    {
+        Vector3 temp = nextObj.position - currentObj.position;
+        temp = temp.normalized;
+        movement.FlipSprite(currentObj, new Vector2Int((int) temp.x, (int) temp.y));
+    }
 }

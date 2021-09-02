@@ -44,9 +44,11 @@ public class Movement : MonoBehaviour
         Vector3 position = board.GridToWorld(positionOnBoard);
         if (position != transform.position)
         {
+            // if thid doesnt happen, diii
             bodyController.MoveBodyParts();
         }
         transform.position = position;
+        bodyController.RotateBodyParts();
     }
 
     Vector2Int ClampToBounds(Vector2Int pos)
