@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
@@ -17,12 +13,7 @@ public class MainMenu : MonoBehaviour
         gameObject.SetActive(false);
         ResumeGame();
     }
-    
-    public void RestartButton()
-    {
-        SceneManager.LoadScene(0);
-    }
-    
+
     private void PauseGame ()
     {
         Time.timeScale = 0;
