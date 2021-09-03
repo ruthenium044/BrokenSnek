@@ -27,6 +27,10 @@ public class UserInterface : MonoBehaviour
 
     void Update()
     {
+        if (score > highScore)
+        {
+            highScore = score;
+        }
         highScoreText.text = "High score: " + highScore;
         scoreText.text = "Score: " + Score;
     }

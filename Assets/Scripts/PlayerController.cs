@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         movement = GetComponent<Movement>();
-        audio = GetComponent<AudioController>();
         movement.OnInput(Movement.directions[0]);
         StartCoroutine(movement.MoveOneStep());
     }

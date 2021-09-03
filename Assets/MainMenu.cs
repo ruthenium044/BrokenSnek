@@ -14,7 +14,7 @@ public class MainMenu : MonoBehaviour
         ResumeGame();
     }
 
-    private void PauseGame ()
+    public void PauseGame ()
     {
         Time.timeScale = 0;
     }
