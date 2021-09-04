@@ -4,20 +4,13 @@ using Random = UnityEngine.Random;
 
 public class FoodController : MonoBehaviour
 {
-    private Board board;
+    [SerializeField] private Death death;
+    [SerializeField] private Vector2 timeFoodSpawn = new Vector2(5f, 8f);
+    [SerializeField] private Vector2 timeFoodDeSpawn = new Vector2(0.5f, 2f);
     
-    private Vector2 timeFoodSpawn = new Vector2(5f, 8f);
-    private Vector2 timeFoodDeSpawn = new Vector2(1f, 3f);
-
+    private BoardController boardController;
     private SpriteRenderer spriteRenderer;
     private  bool isVisible;
-    private bool canSpawn = true;
-
-    public bool CanSpawn
-    {
-        get => canSpawn;
-        set => canSpawn = value;
-    }
 
     public bool IsVisible
     {
@@ -27,8 +20,8 @@ public class FoodController : MonoBehaviour
 
     private void Start()
     {
+        boardController = transform.parent.GetComponent<BoardController>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        board = transform.parent.GetComponent<Board>();
         
         MakeVisible(false);
         StartCoroutine(SpawnFood());
@@ -36,9 +29,9 @@ public class FoodController : MonoBehaviour
 
     IEnumerator SpawnFood()
     {
-        while (CanSpawn) //TODO need to execute game over here somehow
+        while (!death.GameOver)
         {
-            PlaceFood(new Vector2Int(Random.Range(0, board.BoardSize.x - 1), Random.Range(0, board.BoardSize.y - 1)));
+            PlaceFood(new Vector2Int(Random.Range(0, boardController.BoardSize.x - 1), Random.Range(0, boardController.BoardSize.y - 1)));
             yield return new WaitForSeconds (Random.Range(timeFoodSpawn.x, timeFoodSpawn.y));
             
             MakeVisible(false);
@@ -49,7 +42,7 @@ public class FoodController : MonoBehaviour
     private void PlaceFood(Vector2Int pos)
     {
         MakeVisible(true);
-        transform.position = board.GridToWorld(pos);
+        transform.position = boardController.GridToWorld(pos);
     }
 
     public void MakeVisible(bool state)

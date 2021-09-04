@@ -2,10 +2,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private Movement movement = null;
+    private Movement movement;
     private AudioController audio;
-    public Vector2Int prevDirection = Vector2Int.zero;
-    
+   
     private void Start()
     {
         movement = GetComponent<Movement>();

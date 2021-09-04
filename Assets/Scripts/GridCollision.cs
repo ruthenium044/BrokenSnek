@@ -3,7 +3,7 @@ using UnityEngine;
 public class GridCollision : MonoBehaviour
 {
     [SerializeField] private FoodController food;
-    private Board board;
+    private BoardController boardController;
     private BodyController bodyController;
     private UserInterface userInterface;
     private Death death;
@@ -11,7 +11,7 @@ public class GridCollision : MonoBehaviour
 
     private void Awake()
     {
-        board = food.transform.parent.GetComponent<Board>();
+        boardController = food.transform.parent.GetComponent<BoardController>();
         bodyController = GetComponent<BodyController>();
         userInterface = GetComponent<UserInterface>();
         death = GetComponent<Death>();
@@ -20,7 +20,7 @@ public class GridCollision : MonoBehaviour
 
     private void Update()
     {
-        if (CheckPlayerPosition(board.WorldToGrid(food.transform.position)) && food.IsVisible)
+        if (CheckPlayerPosition(boardController.WorldToGrid(food.transform.position)) && food.IsVisible)
         {
             audio.Play(Random.Range(1, 4));
             userInterface.Score += 1;
@@ -30,16 +30,16 @@ public class GridCollision : MonoBehaviour
 
         for (int i = 3; i < bodyController.BodyParts.Count; i++)
         {
-            if (CheckPlayerPosition(board.WorldToGrid(bodyController.BodyParts[i].transform.position)))
+            if (CheckPlayerPosition(boardController.WorldToGrid(bodyController.BodyParts[i].transform.position)))
             {
                 death.ExecuteSnake();
             }
         }
     }
-
+    
     private bool CheckPlayerPosition(Vector2Int pos)
     {
-        if (board.WorldToGrid(transform.position) == pos)
+        if (boardController.WorldToGrid(transform.position) == pos)
         {
             return true;
         }

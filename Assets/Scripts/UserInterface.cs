@@ -16,7 +16,7 @@ public class UserInterface : MonoBehaviour
         set => score = value;
     }
 
-    private void Start()
+    private void Awake()
     {
         gameOverImage.gameObject.SetActive(false);
         if (PlayerPrefs.HasKey("Highscore"))
@@ -42,6 +42,7 @@ public class UserInterface : MonoBehaviour
 
     public void GameOver()
     {
+        PlayerPrefs.SetInt("Highscore", highScore);
         gameOverImage.SetActive(true);
     }
 

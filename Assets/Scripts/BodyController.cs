@@ -4,14 +4,14 @@ using UnityEngine;
 public class BodyController : MonoBehaviour
 {
     [SerializeField] private GameObject bodyPrefab;
+    
+    [SerializeField] private Sprite body;
+    [SerializeField] private Sprite tail;
+    private Movement movement;
+    
     private List<GameObject> bodyParts = new List<GameObject>();
 
     public List<GameObject> BodyParts => bodyParts;
-
-    [SerializeField] private Sprite body;
-    [SerializeField] private Sprite tail;
-
-    private Movement movement = null;
     
     void Start()
     {
