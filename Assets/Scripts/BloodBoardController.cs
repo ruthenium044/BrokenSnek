@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
@@ -25,12 +24,17 @@ public class BloodBoardController : MonoBehaviour
             bloodBoard.Add(currentKey, temp);
         }
     }
-    
-    private void OnApplicationQuit()
+
+    public void Cleanup()
     {
         foreach (var obj in bloodBoard)
         {
             Destroy(obj.Value);
         }
+    }
+    
+    private void OnApplicationQuit()
+    {
+        Cleanup();
     }
 }
