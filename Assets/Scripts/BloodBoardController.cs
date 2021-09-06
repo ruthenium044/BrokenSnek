@@ -5,11 +5,15 @@ using UnityEngine;
 
 public class BloodBoardController : MonoBehaviour
 {
-    [SerializeField] private BoardController boardController;
     [SerializeField] private GameObject blood;
-    
+    private BoardController boardController;
     static private Dictionary<Vector2Int, GameObject> bloodBoard = new Dictionary<Vector2Int, GameObject>();
-    
+
+    private void Awake()
+    {
+        boardController = GetComponent<BoardController>();
+    }
+
     public void AddBlood(Vector3 pos)
     {
         Vector2Int currentKey = boardController.WorldToGrid(pos);

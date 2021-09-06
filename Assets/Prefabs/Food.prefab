@@ -96,3 +96,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   death: {fileID: 0}
+  timeFoodSpawn: {x: 5, y: 8}
+  timeFoodDeSpawn: {x: 0.5, y: 2}

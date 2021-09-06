@@ -27,15 +27,18 @@ public class FoodController : MonoBehaviour
         StartCoroutine(SpawnFood());
     }
 
-    IEnumerator SpawnFood()
+    IEnumerator SpawnFood() //todo clean up this into two or something
     {
         while (!death.GameOver)
         {
             PlaceFood(new Vector2Int(Random.Range(0, boardController.BoardSize.x - 1), Random.Range(0, boardController.BoardSize.y - 1)));
             yield return new WaitForSeconds (Random.Range(timeFoodSpawn.x, timeFoodSpawn.y));
-            
-            MakeVisible(false);
-            yield return new WaitForSeconds (Random.Range(timeFoodDeSpawn.x, timeFoodDeSpawn.y));
+
+            if (!death.GameOver)
+            {
+                MakeVisible(false);
+                yield return new WaitForSeconds (Random.Range(timeFoodDeSpawn.x, timeFoodDeSpawn.y));
+            }
         }
     }
 
@@ -58,5 +61,4 @@ public class FoodController : MonoBehaviour
             spriteRenderer.color = Color.clear;
         }
     }
-    
 }

@@ -170,6 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d272a789fe4d0964aa8ae871497f3e6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bloodBoardController: {fileID: 0}
 --- !u!82 &8266182454817171398
 AudioSource:
   m_ObjectHideFlags: 0
