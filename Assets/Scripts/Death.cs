@@ -5,14 +5,13 @@ using UnityEngine;
 
 public class Death : MonoBehaviour
 {
+    [SerializeField] private BloodBoardController bloodBoardController;
     private AudioController audio;
-    private BloodBoardController bloodBoardController;
     private UserInterface userInterface;
     private bool gameOver = false;
 
     private void Awake()
     {
-        bloodBoardController = GetComponent<BloodBoardController>();
         userInterface = GetComponent<UserInterface>();
     }
 
@@ -23,7 +22,7 @@ public class Death : MonoBehaviour
     
     public void ExecuteSnake()
     {
-        bloodBoardController.AddBlood();
+        bloodBoardController.AddBlood(transform.position);
         gameOver = true;
         GetComponent<AudioController>().Play(0);
         userInterface.GameOver();
