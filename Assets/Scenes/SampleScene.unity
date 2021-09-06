@@ -128,51 +128,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8121950573353128148, guid: 5f375c4ef54be784883fa40f7331d1a2, type: 3}
   m_PrefabInstance: {fileID: 8121950573285806380}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &104476591
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 104476593}
-  - component: {fileID: 104476592}
-  m_Layer: 0
-  m_Name: BloodBoard
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &104476592
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 104476591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a6c3cfda04e9074ab4d93f13659141c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blood: {fileID: 2448114411214054964, guid: a086960fbd7703f4aae4a0b2f1d76e32, type: 3}
-  boardController: {fileID: 283234917}
---- !u!4 &104476593
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 104476591}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.3478458, y: 0.52581143, z: 517.9279}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &283234916
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,6 +138,7 @@ GameObject:
   m_Component:
   - component: {fileID: 283234918}
   - component: {fileID: 283234917}
+  - component: {fileID: 283234919}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -220,6 +176,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &283234919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 283234916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a6c3cfda04e9074ab4d93f13659141c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blood: {fileID: 2448114411214054964, guid: a086960fbd7703f4aae4a0b2f1d76e32, type: 3}
 --- !u!114 &404709739 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8121950573150105671, guid: 5f375c4ef54be784883fa40f7331d1a2, type: 3}
@@ -682,9 +651,13 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4846140664405175941, guid: 17a81a46ac906e04a8d87a1ceb1e62c7, type: 3}
+      propertyPath: timer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846140664405175941, guid: 17a81a46ac906e04a8d87a1ceb1e62c7, type: 3}
       propertyPath: bloodBoardController
       value: 
-      objectReference: {fileID: 104476592}
+      objectReference: {fileID: 283234919}
     - target: {fileID: 8266182455983637804, guid: 17a81a46ac906e04a8d87a1ceb1e62c7, type: 3}
       propertyPath: m_Name
       value: Player
