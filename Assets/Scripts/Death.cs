@@ -5,7 +5,7 @@ public class Death : MonoBehaviour
 {
     [SerializeField] private BloodBoardController bloodBoardController;
     [SerializeField] private float timer = 5f;
-    private AudioController audio;
+    private AudioController audioController;
     private UserInterface userInterface;
     private bool gameOver = false;
 

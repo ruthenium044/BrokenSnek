@@ -7,7 +7,7 @@ public class GridCollision : MonoBehaviour
     private BodyController bodyController;
     private UserInterface userInterface;
     private Death death;
-    private AudioController audio;
+    private AudioController audioController;
 
     private void Awake()
     {
@@ -15,14 +15,14 @@ public class GridCollision : MonoBehaviour
         bodyController = GetComponent<BodyController>();
         userInterface = GetComponent<UserInterface>();
         death = GetComponent<Death>();
-        audio = GetComponent<AudioController>();
+        audioController = GetComponent<AudioController>();
     }
 
     private void Update()
     {
         if (CheckPlayerPosition(boardController.WorldToGrid(food.transform.position)) && food.IsVisible)
         {
-            audio.Play(Random.Range(1, 4));
+            audioController.Play(Random.Range(1, 4));
             userInterface.Score += 1;
             food.MakeVisible(false);
             bodyController.AddBodyParts();
