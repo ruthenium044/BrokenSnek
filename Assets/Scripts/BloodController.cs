@@ -6,6 +6,14 @@ public class BloodController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Vector2Int spriteSize = new Vector2Int(16, 16);
     
+    private int timesToSmooth = 4;
+    private int randomFillPercent = 50;
+
+    private System.Random pseudoRandom;
+    
+    private List<Color32> list = new List<Color32>();
+    private Color32 theRed = new Color32(0xa5, 0x30, 0x30, 0xFF);
+    
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -31,17 +39,6 @@ public class BloodController : MonoBehaviour
         return sprite;
     }
 
-    private string seed;
-    private bool useRandomSeed = true;
-    private int timesToSmooth = 4;
-
-    [Range(0, 100)]
-    private int randomFillPercent = 50;
-
-    private System.Random pseudoRandom;
-    
-    private Color32 theRed = new Color32(0xa5, 0x30, 0x30, 0xFF);
-    
     private Color32[] GenerateBloodArray()
     {
         List<Color32> colors = new List<Color32>();
@@ -53,11 +50,9 @@ public class BloodController : MonoBehaviour
 
     private void SetRandom()
     {
-	    if (useRandomSeed)
-	    {
-		    seed = System.DateTime.Now.ToString();
-	    }
-	    pseudoRandom = new System.Random(seed.GetHashCode());
+        string seed;
+	    seed = System.DateTime.Now.ToString();
+        pseudoRandom = new System.Random(seed.GetHashCode());
     }
     
     private void GenerateMap()
@@ -70,10 +65,6 @@ public class BloodController : MonoBehaviour
         }
     }
 
-    private List<Color32> list = new List<Color32>();
-    
-    //ref
-    //https://learn.unity.com/project/procedural-cave-generation-tutorial
     void RandomFillMap()
     {
         for (int x = 0; x < spriteSize.x; x++)
@@ -101,7 +92,7 @@ public class BloodController : MonoBehaviour
         }
     }
 
-    int GetNeighbourCount(int gridX, int gridY) //moore
+    int GetNeighbourCount(int gridX, int gridY)
     {
         int wallCount = 0;
         for (int neighbourX = gridX - 1; neighbourX <= gridX + 1; neighbourX++)
