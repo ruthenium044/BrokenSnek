@@ -655,10 +655,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4846140664405175941, guid: 17a81a46ac906e04a8d87a1ceb1e62c7, type: 3}
-      propertyPath: timer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4846140664405175941, guid: 17a81a46ac906e04a8d87a1ceb1e62c7, type: 3}
       propertyPath: bloodBoardController
       value: 
       objectReference: {fileID: 283234919}

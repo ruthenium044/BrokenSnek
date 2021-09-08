@@ -4,19 +4,18 @@ using UnityEngine;
 public class BodyController : MonoBehaviour
 {
     [SerializeField] private GameObject bodyPrefab;
-    
     [SerializeField] private Sprite body;
     [SerializeField] private Sprite tail;
-    private Movement movement;
     
     private List<GameObject> bodyParts = new List<GameObject>();
+    private Movement movement;
 
     public List<GameObject> BodyParts => bodyParts;
     
     void Start()
     {
-        movement = GetComponent<Movement>();
         bodyParts.Add(gameObject);
+        movement = GetComponent<Movement>();
     }
     
     public void AddBodyParts()
@@ -46,14 +45,9 @@ public class BodyController : MonoBehaviour
     {
         for (int i = bodyParts.Count - 1; i > 0; i--)
         {
-            FlipSprite(bodyParts[i].transform, bodyParts[i - 1].transform);
+            Vector3 temp = bodyParts[i - 1].transform.position - bodyParts[i].transform.position;
+            temp = temp.normalized;
+            movement.RotateSprite(bodyParts[i].transform, new Vector2Int((int) temp.x, (int) temp.y));
         }
-    }
-    
-    private void FlipSprite(Transform currentObj, Transform nextObj)
-    {
-        Vector3 temp = nextObj.position - currentObj.position;
-        temp = temp.normalized;
-        movement.FlipSprite(currentObj, new Vector2Int((int) temp.x, (int) temp.y));
     }
 }

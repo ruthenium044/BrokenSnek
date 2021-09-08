@@ -7,6 +7,7 @@ public class UserInterface : MonoBehaviour
     [SerializeField] private Text highScoreText;
     [SerializeField] private Text scoreText;
     [SerializeField] private GameObject gameOverImage;
+    private string key = "Highscore";
     private int highScore = 0;
     private int score = 0;
     
@@ -19,9 +20,9 @@ public class UserInterface : MonoBehaviour
     private void Awake()
     {
         gameOverImage.gameObject.SetActive(false);
-        if (PlayerPrefs.HasKey("Highscore"))
+        if (PlayerPrefs.HasKey(key))
         {
-            highScore = PlayerPrefs.GetInt("Highscore");
+            highScore = PlayerPrefs.GetInt(key);
         }
     }
 
@@ -42,12 +43,12 @@ public class UserInterface : MonoBehaviour
 
     public void GameOver()
     {
-        PlayerPrefs.SetInt("Highscore", highScore);
+        PlayerPrefs.SetInt(key, highScore);
         gameOverImage.SetActive(true);
     }
 
     private void OnApplicationQuit()
     {
-        PlayerPrefs.SetInt("Highscore", highScore);
+        PlayerPrefs.SetInt(key, highScore);
     }
 }

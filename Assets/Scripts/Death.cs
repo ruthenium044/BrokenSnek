@@ -4,33 +4,34 @@ using UnityEngine;
 public class Death : MonoBehaviour
 {
     [SerializeField] private BloodBoardController bloodBoardController;
-    [SerializeField] private float timer = 5f;
     private AudioController audioController;
     private UserInterface userInterface;
     private bool gameOver = false;
+    private float timer = 5f;
+    
+    public bool GameOver => gameOver;
 
     private void Awake()
     {
         userInterface = GetComponent<UserInterface>();
     }
-
-    public bool GameOver
-    {
-        get => gameOver;
-    }
     
     public void ExecuteSnake()
     {
-        StopAllCoroutines();
-        bloodBoardController.AddBlood(transform.position);
-        gameOver = true;
-        GetComponent<AudioController>().Play(0);
-        userInterface.GameOver();
-        StartCoroutine(ReloadScene());
+        if (!gameOver)
+        {
+            gameOver = true;
+            StopAllCoroutines();
+            bloodBoardController.AddBlood(transform.position);
+        
+            GetComponent<AudioController>().Play(0);
+            StartCoroutine(ReloadScene());
+        }
     }
 
     private IEnumerator ReloadScene()
     {
+        userInterface.GameOver();
         yield return new WaitForSeconds(timer);
         userInterface.RestartButton();
     }

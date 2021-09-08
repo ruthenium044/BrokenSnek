@@ -26,7 +26,7 @@ public class Movement : MonoBehaviour
         if (dir != -direction && !death.GameOver)
         {
             inputDirection = dir;
-            FlipSprite(transform, inputDirection);
+            RotateSprite(transform, inputDirection);
         }
     }
     
@@ -42,7 +42,6 @@ public class Movement : MonoBehaviour
     private void Move(Vector2Int dir)
     {
         direction = dir;
-        
         Vector2Int positionOnBoard = boardController.WorldToGrid(transform.position);
         positionOnBoard += dir;
 
@@ -77,7 +76,7 @@ public class Movement : MonoBehaviour
         return pos;
     }
 
-    public void FlipSprite(Transform obj, Vector2Int dir)
+    public void RotateSprite(Transform obj, Vector2Int dir)
     {
         if (dir == directions[0])
         {

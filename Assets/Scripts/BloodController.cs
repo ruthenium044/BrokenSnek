@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class BloodController : MonoBehaviour
 {
+    [SerializeField] private int timesToSmooth = 5;
+    [SerializeField] private int randomFillPercent = 49;
+    
     private SpriteRenderer spriteRenderer;
     private Vector2Int spriteSize = new Vector2Int(16, 16);
 
-    private int timesToSmooth = 5;
-    private int randomFillPercent = 49;
-
-    private List<Color32> tempList = new List<Color32>();
+    private List<Color32> pixels = new List<Color32>();
     private List<Color32> reds = new List<Color32>
     {
         new Color32(0x52, 0x0b, 0x20, 0xFF),
@@ -21,16 +21,8 @@ public class BloodController : MonoBehaviour
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-    }
-
-    private void Start()
-    {
         red = reds[BloodBoardController.PseudoRandom.Next(0, reds.Count)];
-        do
-        {
-            Generate();
-        } while (IsEmpty());
-        
+        GeneratePixels();
         spriteRenderer.sprite = CreateSprite();
     }
 
@@ -38,42 +30,35 @@ public class BloodController : MonoBehaviour
     {
         Texture2D texture = new Texture2D(spriteSize.x, spriteSize.y);
         texture.filterMode = FilterMode.Point;
-
-        texture.SetPixels32(GenerateBloodArray());
-        texture.Compress(false);
+        texture.SetPixels32(pixels.ToArray());;
         texture.Apply();
 
         Sprite sprite = Sprite.Create(texture, new Rect(0, 0, spriteSize.x, spriteSize.y), Vector2.one * 0.5f, 16);
         return sprite;
     }
 
-    private Color32[] GenerateBloodArray()
+    private void GeneratePixels()
     {
-        List<Color32> colors = new List<Color32>();
-        colors = tempList;
-        return colors.ToArray();
-    }
-
-    private void Generate()
-    {
-        RandomFill();
-
-        for (int i = 0; i < timesToSmooth; i++)
+        do
         {
-            Smooth();
-        }
+            RandomFill();
+            for (int i = 0; i < timesToSmooth; i++)
+            {
+                Smooth();
+            }
+        } while (IsEmpty());
     }
 
     private bool IsEmpty()
     {
-        foreach (var obj in tempList)
+        foreach (var obj in pixels)
         {
             if (obj != Color.clear)
             {
                 return false;
             }
         }
-        tempList.Clear();
+        pixels.Clear();
         return true;
     }
     
@@ -83,7 +68,7 @@ public class BloodController : MonoBehaviour
         {
             for (int y = 0; y < spriteSize.y; y++)
             {
-                tempList.Add((BloodBoardController.PseudoRandom.Next(0, 100) < randomFillPercent) ? red : (Color32) Color.clear);
+                pixels.Add((BloodBoardController.PseudoRandom.Next(0, 100) < randomFillPercent) ? red : (Color32) Color.clear);
             }
         }
     }
@@ -95,11 +80,14 @@ public class BloodController : MonoBehaviour
             for (int y = 0; y < spriteSize.y; y++)
             {
                 int neighbourWallTiles = GetNeighbourCount(x, y);
-
                 if (neighbourWallTiles > 4)
-                    tempList[(y * spriteSize.y) + x] = red;
+                {
+                    pixels[(y * spriteSize.y) + x] = red;
+                }
                 else if (neighbourWallTiles < 4)
-                    tempList[(y * spriteSize.y) + x] = Color.clear;
+                {
+                    pixels[(y * spriteSize.y) + x] = Color.clear;
+                }
             }
         }
     }
@@ -107,21 +95,17 @@ public class BloodController : MonoBehaviour
     private int GetNeighbourCount(int gridX, int gridY)
     {
         int wallCount = 0;
-        for (int neighbourX = gridX - 1; neighbourX <= gridX + 1; neighbourX++)
+        for (int x = gridX - 1; x <= gridX + 1; x++)
         {
-            for (int neighbourY = gridY - 1; neighbourY <= gridY + 1; neighbourY++)
+            for (int y = gridY - 1; y <= gridY + 1; y++)
             {
-                if (neighbourX >= 0 && neighbourX < spriteSize.x && 
-                    neighbourY >= 0 && neighbourY < spriteSize.y)
+                if (x < 0 || x >= spriteSize.x || y < 0 || y >= spriteSize.y)
                 {
-                    if (neighbourX != gridX || neighbourY != gridY)
-                    {
-                        if (tempList[(neighbourY * spriteSize.y) + neighbourX].Equals(red))
-                        {
-                            wallCount += 1;
-                        }
-                        
-                    }
+                    continue;
+                }
+                if (x != gridX || y != gridY)
+                {
+                    wallCount += pixels[(y * spriteSize.y) + x].Equals(red) ? 1 : 0;
                 }
             }
         }

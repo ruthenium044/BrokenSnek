@@ -15,10 +15,10 @@ public class FoodController : MonoBehaviour
     public bool IsVisible
     {
         get => isVisible;
-        set => isVisible = value;
+        private set => isVisible = value;
     }
 
-    private void Start()
+    private void Awake()
     {
         boardController = transform.parent.GetComponent<BoardController>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -27,7 +27,7 @@ public class FoodController : MonoBehaviour
         StartCoroutine(SpawnFood());
     }
 
-    IEnumerator SpawnFood() //todo clean up this into two or something
+    private IEnumerator SpawnFood() //todo clean up this into two or something
     {
         while (!death.GameOver)
         {
@@ -51,14 +51,6 @@ public class FoodController : MonoBehaviour
     public void MakeVisible(bool state)
     {
         IsVisible = state;
-        if (state)
-        {
-            spriteRenderer.color = Color.white;
-            
-        }
-        else
-        {
-            spriteRenderer.color = Color.clear;
-        }
+        spriteRenderer.color = state? Color.white : Color.clear;
     }
 }

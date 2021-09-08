@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Globalization;
 using Unity.Mathematics;
 using UnityEngine;
 using Random = System.Random;
@@ -6,26 +7,27 @@ using Random = System.Random;
 public class BloodBoardController : MonoBehaviour
 {
     [SerializeField] private GameObject blood;
-    private BoardController boardController;
-    static private List<GameObject> bloodBoard = new List<GameObject>();
-    
-    private static System.Random pseudoRandom;
+    private static List<GameObject> bloodBoard = new List<GameObject>();
+    private static Random pseudoRandom;
     public static Random PseudoRandom => pseudoRandom;
 
     private void Awake()
     {
-        boardController = GetComponent<BoardController>();
         SetRandom();
     }
 
     public void AddBlood(Vector3 pos)
+    { 
+        GameObject temp = Instantiate(blood, pos, quaternion.identity);
+        DontDestroyOnLoad(temp);
+        bloodBoard.Add(temp);
+    }
+    
+    private void SetRandom()
     {
-        Vector2Int currentKey = boardController.WorldToGrid(pos);
-        
-         GameObject temp = Instantiate(blood, pos, quaternion.identity);
-         temp.transform.position = pos;
-         DontDestroyOnLoad(temp);
-         bloodBoard.Add(temp);
+        string seed;
+        seed = System.DateTime.Now.ToString(CultureInfo.InvariantCulture);
+        pseudoRandom = new Random(seed.GetHashCode());
     }
 
     public void Cleanup()
@@ -34,18 +36,12 @@ public class BloodBoardController : MonoBehaviour
         {
             Destroy(obj);
         }
+        bloodBoard.Clear();
     }
     
     private void OnApplicationQuit()
     {
         Cleanup();
-    }
-    
-    private void SetRandom()
-    {
-        string seed;
-        seed = System.DateTime.Now.ToString();
-        pseudoRandom = new System.Random(seed.GetHashCode());
     }
 }
 
