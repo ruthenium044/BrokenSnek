@@ -5,24 +5,32 @@ public class BloodController : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
     private Vector2Int spriteSize = new Vector2Int(16, 16);
-    
-    private int timesToSmooth = 4;
-    private int randomFillPercent = 50;
 
-    private System.Random pseudoRandom;
-    
-    private List<Color32> list = new List<Color32>();
-    private Color32 theRed = new Color32(0xa5, 0x30, 0x30, 0xFF);
-    
+    private int timesToSmooth = 5;
+    private int randomFillPercent = 49;
+
+    private List<Color32> tempList = new List<Color32>();
+    private List<Color32> reds = new List<Color32>
+    {
+        new Color32(0x52, 0x0b, 0x20, 0xFF),
+        new Color32(0x7d, 0x0f, 0x1f, 0xFF), 
+        new Color32(0xa8, 0x14, 0x1d, 0xFF)
+    };
+    private Color32 red;
+
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        SetRandom();
-        GenerateMap();
     }
 
     private void Start()
     {
+        red = reds[BloodBoardController.PseudoRandom.Next(0, reds.Count)];
+        do
+        {
+            Generate();
+        } while (IsEmpty());
+        
         spriteRenderer.sprite = CreateSprite();
     }
 
@@ -34,7 +42,7 @@ public class BloodController : MonoBehaviour
         texture.SetPixels32(GenerateBloodArray());
         texture.Compress(false);
         texture.Apply();
-        
+
         Sprite sprite = Sprite.Create(texture, new Rect(0, 0, spriteSize.x, spriteSize.y), Vector2.one * 0.5f, 16);
         return sprite;
     }
@@ -42,41 +50,45 @@ public class BloodController : MonoBehaviour
     private Color32[] GenerateBloodArray()
     {
         List<Color32> colors = new List<Color32>();
-
-        colors = list;
-
+        colors = tempList;
         return colors.ToArray();
     }
 
-    private void SetRandom()
+    private void Generate()
     {
-        string seed;
-	    seed = System.DateTime.Now.ToString();
-        pseudoRandom = new System.Random(seed.GetHashCode());
-    }
-    
-    private void GenerateMap()
-    {
-        RandomFillMap();
+        RandomFill();
 
         for (int i = 0; i < timesToSmooth; i++)
         {
-            SmoothMap();
+            Smooth();
         }
     }
 
-    void RandomFillMap()
+    private bool IsEmpty()
+    {
+        foreach (var obj in tempList)
+        {
+            if (obj != Color.clear)
+            {
+                return false;
+            }
+        }
+        tempList.Clear();
+        return true;
+    }
+    
+    private void RandomFill()
     {
         for (int x = 0; x < spriteSize.x; x++)
         {
             for (int y = 0; y < spriteSize.y; y++)
             {
-                list.Add((pseudoRandom.Next(0, 100) < randomFillPercent) ? theRed : (Color32) Color.clear);
+                tempList.Add((BloodBoardController.PseudoRandom.Next(0, 100) < randomFillPercent) ? red : (Color32) Color.clear);
             }
         }
     }
 
-    void SmoothMap()
+    private void Smooth()
     {
         for (int x = 0; x < spriteSize.x; x++)
         {
@@ -85,14 +97,14 @@ public class BloodController : MonoBehaviour
                 int neighbourWallTiles = GetNeighbourCount(x, y);
 
                 if (neighbourWallTiles > 4)
-                    list[(y * spriteSize.y) + x] = theRed;
+                    tempList[(y * spriteSize.y) + x] = red;
                 else if (neighbourWallTiles < 4)
-                    list[(y * spriteSize.y) + x] = Color.clear;
+                    tempList[(y * spriteSize.y) + x] = Color.clear;
             }
         }
     }
 
-    int GetNeighbourCount(int gridX, int gridY)
+    private int GetNeighbourCount(int gridX, int gridY)
     {
         int wallCount = 0;
         for (int neighbourX = gridX - 1; neighbourX <= gridX + 1; neighbourX++)
@@ -104,7 +116,7 @@ public class BloodController : MonoBehaviour
                 {
                     if (neighbourX != gridX || neighbourY != gridY)
                     {
-                        if (list[(neighbourY * spriteSize.y) + neighbourX].Equals(theRed))
+                        if (tempList[(neighbourY * spriteSize.y) + neighbourX].Equals(red))
                         {
                             wallCount += 1;
                         }
