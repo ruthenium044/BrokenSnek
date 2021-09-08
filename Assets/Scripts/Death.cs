@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Death : MonoBehaviour
 {
-    [SerializeField] private BloodBoardController bloodBoardController;
+    [SerializeField] private BloodBoard bloodBoard;
     private AudioController audioController;
     private UserInterface userInterface;
     private bool gameOver = false;
@@ -22,7 +22,7 @@ public class Death : MonoBehaviour
         {
             gameOver = true;
             StopAllCoroutines();
-            bloodBoardController.AddBlood(transform.position);
+            bloodBoard.AddBlood(transform.position);
         
             GetComponent<AudioController>().Play(0);
             StartCoroutine(ReloadScene());

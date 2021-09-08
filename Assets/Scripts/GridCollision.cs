@@ -2,17 +2,17 @@ using UnityEngine;
 
 public class GridCollision : MonoBehaviour
 {
-    [SerializeField] private FoodController food;
-    private BoardController boardController;
-    private BodyController bodyController;
+    [SerializeField] private Food food;
+    private Board board;
+    private Body body;
     private UserInterface userInterface;
     private Death death;
     private AudioController audioController;
 
     private void Awake()
     {
-        boardController = food.transform.parent.GetComponent<BoardController>();
-        bodyController = GetComponent<BodyController>();
+        board = food.transform.parent.GetComponent<Board>();
+        body = GetComponent<Body>();
         userInterface = GetComponent<UserInterface>();
         death = GetComponent<Death>();
         audioController = GetComponent<AudioController>();
@@ -20,17 +20,17 @@ public class GridCollision : MonoBehaviour
 
     private void Update()
     {
-        if (CheckPlayerPosition(boardController.WorldToGrid(food.transform.position)) && food.IsVisible)
+        if (CheckPlayerPosition(board.WorldToGrid(food.transform.position)) && food.IsVisible)
         {
             audioController.Play(Random.Range(1, 4));
             userInterface.Score += 1;
             food.MakeVisible(false);
-            bodyController.AddBodyParts();
+            body.AddBodyParts();
         }
 
-        for (int i = 3; i < bodyController.BodyParts.Count; i++)
+        for (int i = 3; i < body.BodyParts.Count; i++)
         {
-            if (CheckPlayerPosition(boardController.WorldToGrid(bodyController.BodyParts[i].transform.position)))
+            if (CheckPlayerPosition(board.WorldToGrid(body.BodyParts[i].transform.position)))
             {
                 death.ExecuteSnake();
             }
@@ -39,7 +39,7 @@ public class GridCollision : MonoBehaviour
     
     private bool CheckPlayerPosition(Vector2Int pos)
     {
-        if (boardController.WorldToGrid(transform.position) == pos)
+        if (board.WorldToGrid(transform.position) == pos)
         {
             return true;
         }

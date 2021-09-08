@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BoardController : MonoBehaviour
+public class Board : MonoBehaviour
 {
     [SerializeField] private GameObject tilePrefab;
     [SerializeField] private Vector2Int boardSize = new Vector2Int(18, 9);

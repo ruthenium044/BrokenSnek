@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    [SerializeField] private BoardController boardController;
-    private BodyController bodyController;
+    [SerializeField] private Board board;
+    private Body body;
     private Death death;
     
     public static readonly List<Vector2Int> directions = new List<Vector2Int>
@@ -17,7 +17,7 @@ public class Movement : MonoBehaviour
 
     private void Awake()
     {
-        bodyController = GetComponent<BodyController>();
+        body = GetComponent<Body>();
         death = GetComponent<Death>();
     }
 
@@ -42,7 +42,7 @@ public class Movement : MonoBehaviour
     private void Move(Vector2Int dir)
     {
         direction = dir;
-        Vector2Int positionOnBoard = boardController.WorldToGrid(transform.position);
+        Vector2Int positionOnBoard = board.WorldToGrid(transform.position);
         positionOnBoard += dir;
 
         if (IsOutOfBounds(positionOnBoard))
@@ -50,19 +50,19 @@ public class Movement : MonoBehaviour
             death.ExecuteSnake();
         }
         positionOnBoard = ClampToBounds(positionOnBoard);
-        Vector3 position = boardController.GridToWorld(positionOnBoard);
+        Vector3 position = board.GridToWorld(positionOnBoard);
         
         if (position != transform.position)
         {
-            bodyController.MoveBodyParts();
+            body.MoveBodyParts();
         }
         transform.position = position;
-        bodyController.RotateBodyParts();
+        body.RotateBodyParts();
     }
 
     private bool IsOutOfBounds(Vector2Int pos)
     {
-        if (pos.x < 0 || pos.x > boardController.BoardSize.x - 1 || pos.y < 0 || pos.y > boardController.BoardSize.y - 1)
+        if (pos.x < 0 || pos.x > board.BoardSize.x - 1 || pos.y < 0 || pos.y > board.BoardSize.y - 1)
         {
             return true;
         }
@@ -71,8 +71,8 @@ public class Movement : MonoBehaviour
 
     private Vector2Int ClampToBounds(Vector2Int pos)
     {
-        pos.x = Mathf.Clamp(pos.x, 0, boardController.BoardSize.x - 1);
-        pos.y = Mathf.Clamp(pos.y, 0, boardController.BoardSize.y - 1);
+        pos.x = Mathf.Clamp(pos.x, 0, board.BoardSize.x - 1);
+        pos.y = Mathf.Clamp(pos.y, 0, board.BoardSize.y - 1);
         return pos;
     }
 

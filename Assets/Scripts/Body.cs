@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BodyController : MonoBehaviour
+public class Body : MonoBehaviour
 {
     [SerializeField] private GameObject bodyPrefab;
     [SerializeField] private Sprite body;

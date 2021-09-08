@@ -2,13 +2,13 @@ using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class FoodController : MonoBehaviour
+public class Food : MonoBehaviour
 {
     [SerializeField] private Death death;
     [SerializeField] private Vector2 timeFoodSpawn = new Vector2(5f, 8f);
     [SerializeField] private Vector2 timeFoodDeSpawn = new Vector2(0.5f, 2f);
     
-    private BoardController boardController;
+    private Board board;
     private SpriteRenderer spriteRenderer;
     private  bool isVisible;
 
@@ -20,32 +20,29 @@ public class FoodController : MonoBehaviour
 
     private void Awake()
     {
-        boardController = transform.parent.GetComponent<BoardController>();
+        board = transform.parent.GetComponent<Board>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         
         MakeVisible(false);
         StartCoroutine(SpawnFood());
     }
 
-    private IEnumerator SpawnFood() //todo clean up this into two or something
+    private IEnumerator SpawnFood()
     {
-        while (!death.GameOver)
+        PlaceFood(new Vector2Int(Random.Range(0, board.BoardSize.x - 1), Random.Range(0, board.BoardSize.y - 1)));
+        if (!death.GameOver)
         {
-            PlaceFood(new Vector2Int(Random.Range(0, boardController.BoardSize.x - 1), Random.Range(0, boardController.BoardSize.y - 1)));
             yield return new WaitForSeconds (Random.Range(timeFoodSpawn.x, timeFoodSpawn.y));
-
-            if (!death.GameOver)
-            {
-                MakeVisible(false);
-                yield return new WaitForSeconds (Random.Range(timeFoodDeSpawn.x, timeFoodDeSpawn.y));
-            }
+            MakeVisible(false);
+            yield return new WaitForSeconds (Random.Range(timeFoodDeSpawn.x, timeFoodDeSpawn.y));
+            StartCoroutine(SpawnFood());
         }
     }
 
     private void PlaceFood(Vector2Int pos)
     {
         MakeVisible(true);
-        transform.position = boardController.GridToWorld(pos);
+        transform.position = board.GridToWorld(pos);
     }
 
     public void MakeVisible(bool state)

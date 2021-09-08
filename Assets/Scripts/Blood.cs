@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BloodController : MonoBehaviour
+public class Blood : MonoBehaviour
 {
     [SerializeField] private int timesToSmooth = 5;
     [SerializeField] private int randomFillPercent = 49;
@@ -21,7 +21,7 @@ public class BloodController : MonoBehaviour
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        red = reds[BloodBoardController.PseudoRandom.Next(0, reds.Count)];
+        red = reds[BloodBoard.PseudoRandom.Next(0, reds.Count)];
         GeneratePixels();
         spriteRenderer.sprite = CreateSprite();
     }
@@ -68,7 +68,7 @@ public class BloodController : MonoBehaviour
         {
             for (int y = 0; y < spriteSize.y; y++)
             {
-                pixels.Add((BloodBoardController.PseudoRandom.Next(0, 100) < randomFillPercent) ? red : (Color32) Color.clear);
+                pixels.Add((BloodBoard.PseudoRandom.Next(0, 100) < randomFillPercent) ? red : (Color32) Color.clear);
             }
         }
     }

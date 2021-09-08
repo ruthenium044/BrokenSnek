@@ -4,7 +4,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using Random = System.Random;
 
-public class BloodBoardController : MonoBehaviour
+public class BloodBoard : MonoBehaviour
 {
     [SerializeField] private GameObject blood;
     private static List<GameObject> bloodBoard = new List<GameObject>();
