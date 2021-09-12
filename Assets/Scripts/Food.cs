@@ -4,7 +4,6 @@ using Random = UnityEngine.Random;
 
 public class Food : MonoBehaviour
 {
-    [SerializeField] private Death death;
     [SerializeField] private Vector2 timeFoodSpawn = new Vector2(5f, 8f);
     [SerializeField] private Vector2 timeFoodDeSpawn = new Vector2(0.5f, 2f);
     
@@ -27,16 +26,14 @@ public class Food : MonoBehaviour
         StartCoroutine(SpawnFood());
     }
 
-    private IEnumerator SpawnFood()
+    private IEnumerator SpawnFood() //todo still bad ;-;
     {
         PlaceFood(new Vector2Int(Random.Range(0, board.BoardSize.x - 1), Random.Range(0, board.BoardSize.y - 1)));
-        if (!death.GameOver)
-        {
-            yield return new WaitForSeconds (Random.Range(timeFoodSpawn.x, timeFoodSpawn.y));
-            MakeVisible(false);
-            yield return new WaitForSeconds (Random.Range(timeFoodDeSpawn.x, timeFoodDeSpawn.y));
-            StartCoroutine(SpawnFood());
-        }
+        yield return new WaitForSeconds (Random.Range(timeFoodSpawn.x, timeFoodSpawn.y));
+        
+        MakeVisible(false);
+        yield return new WaitForSeconds (Random.Range(timeFoodDeSpawn.x, timeFoodDeSpawn.y));
+        StartCoroutine(SpawnFood());
     }
 
     private void PlaceFood(Vector2Int pos)

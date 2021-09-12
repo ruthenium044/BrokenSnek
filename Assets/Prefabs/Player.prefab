@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 8266182455983637811}
   - component: {fileID: 8266182455983637808}
   - component: {fileID: 8266182455983637815}
-  - component: {fileID: 8266182455983637814}
   - component: {fileID: 8266182455983637813}
   - component: {fileID: 4846140664405175941}
   - component: {fileID: 8266182454817171398}
@@ -114,7 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a90763afb7a4fe4b81f0b4cd830011f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boardController: {fileID: 0}
+  board: {fileID: 0}
 --- !u!114 &8266182455983637815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,22 +126,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dd0e0faefc6bde49ac78c38695de3c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  userInterface: {fileID: 0}
   food: {fileID: 0}
---- !u!114 &8266182455983637814
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8266182455983637804}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b53d5a54faa5254999a26299c915c26, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  highScoreText: {fileID: 0}
-  scoreText: {fileID: 0}
-  gameOverImage: {fileID: 0}
 --- !u!114 &8266182455983637813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,7 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d272a789fe4d0964aa8ae871497f3e6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bloodBoardController: {fileID: 0}
+  bloodBoard: {fileID: 0}
 --- !u!82 &8266182454817171398
 AudioSource:
   m_ObjectHideFlags: 0

@@ -14,12 +14,12 @@ public class MainMenu : MonoBehaviour
         ResumeGame();
     }
 
-    public void PauseGame ()
+    public void PauseGame()
     {
         Time.timeScale = 0;
     }
 
-    private void ResumeGame ()
+    private void ResumeGame()
     {
         Time.timeScale = 1;
     }

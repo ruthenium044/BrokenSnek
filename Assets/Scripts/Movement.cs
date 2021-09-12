@@ -29,14 +29,12 @@ public class Movement : MonoBehaviour
             RotateSprite(transform, inputDirection);
         }
     }
-    
+
     public IEnumerator MoveOneStep()
     {
-        while (!death.GameOver)
-        {
-            Move(inputDirection);
-            yield return new WaitForSeconds (timeBetweenSteps);
-        }
+        Move(inputDirection);
+        yield return new WaitForSeconds(timeBetweenSteps);
+        StartCoroutine(MoveOneStep());
     }
     
     private void Move(Vector2Int dir)

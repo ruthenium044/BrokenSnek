@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class GridCollision : MonoBehaviour
 {
+    [SerializeField] private UserInterface userInterface;
     [SerializeField] private Food food;
     private Board board;
     private Body body;
-    private UserInterface userInterface;
     private Death death;
     private AudioController audioController;
 
@@ -13,7 +13,6 @@ public class GridCollision : MonoBehaviour
     {
         board = food.transform.parent.GetComponent<Board>();
         body = GetComponent<Body>();
-        userInterface = GetComponent<UserInterface>();
         death = GetComponent<Death>();
         audioController = GetComponent<AudioController>();
     }

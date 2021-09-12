@@ -3,18 +3,13 @@ using UnityEngine;
 
 public class Death : MonoBehaviour
 {
+    [SerializeField] private UserInterface userInterface;
     [SerializeField] private BloodBoard bloodBoard;
     private AudioController audioController;
-    private UserInterface userInterface;
     private bool gameOver = false;
     private float timer = 5f;
     
     public bool GameOver => gameOver;
-
-    private void Awake()
-    {
-        userInterface = GetComponent<UserInterface>();
-    }
     
     public void ExecuteSnake()
     {
@@ -32,8 +27,8 @@ public class Death : MonoBehaviour
     private IEnumerator ReloadScene()
     {
         userInterface.GameOver();
-        yield return new WaitForSeconds(timer);
+        Time.timeScale = 0;
+        yield return new WaitForSecondsRealtime(timer);
         userInterface.RestartButton();
     }
-    
 }
