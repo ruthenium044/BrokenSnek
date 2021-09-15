@@ -4,39 +4,36 @@ public class GridCollision : MonoBehaviour
 {
     [SerializeField] private UserInterface userInterface;
     [SerializeField] private Food food;
-    private Board board;
-    private Body body;
-    private Death death;
-    private AudioController audioController;
 
-    private void Awake()
+    public void Collide(Board board, Body body, Death death)
     {
-        board = food.transform.parent.GetComponent<Board>();
-        body = GetComponent<Body>();
-        death = GetComponent<Death>();
-        audioController = GetComponent<AudioController>();
+        CollideFood(board, body);
+        CollideBody(board, body, death);
     }
 
-    private void Update()
+    private void CollideFood(Board board, Body body)
     {
-        if (CheckPlayerPosition(board.WorldToGrid(food.transform.position)) && food.IsVisible)
+        if (CheckPlayerPosition(board,board.WorldToGrid(food.transform.position)) && food.IsVisible)
         {
-            audioController.Play(Random.Range(1, 4));
+            GetComponent<AudioController>().Play(Random.Range(1, 4));
             userInterface.Score += 1;
             food.MakeVisible(false);
             body.AddBodyParts();
         }
+    }
 
+    private void CollideBody(Board board, Body body, Death death)
+    {
         for (int i = 3; i < body.BodyParts.Count; i++)
         {
-            if (CheckPlayerPosition(board.WorldToGrid(body.BodyParts[i].transform.position)))
+            if (CheckPlayerPosition(board,board.WorldToGrid(body.BodyParts[i].transform.position)))
             {
                 death.ExecuteSnake();
             }
         }
     }
-    
-    private bool CheckPlayerPosition(Vector2Int pos)
+
+    private bool CheckPlayerPosition(Board board, Vector2Int pos)
     {
         if (board.WorldToGrid(transform.position) == pos)
         {

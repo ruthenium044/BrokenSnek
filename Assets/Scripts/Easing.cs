@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class Swipe : MonoBehaviour
+public class Easing : MonoBehaviour
 {
     [SerializeField] private Vector3 end;
     private Vector3 start;

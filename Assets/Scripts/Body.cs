@@ -8,14 +8,11 @@ public class Body : MonoBehaviour
     [SerializeField] private Sprite tail;
     
     private List<GameObject> bodyParts = new List<GameObject>();
-    private Movement movement;
-
     public List<GameObject> BodyParts => bodyParts;
     
     void Start()
     {
         bodyParts.Add(gameObject);
-        movement = GetComponent<Movement>();
     }
     
     public void AddBodyParts()
@@ -41,7 +38,7 @@ public class Body : MonoBehaviour
         }
     }
 
-    public void RotateBodyParts()
+    public void RotateBodyParts(Movement movement)
     {
         for (int i = bodyParts.Count - 1; i > 0; i--)
         {

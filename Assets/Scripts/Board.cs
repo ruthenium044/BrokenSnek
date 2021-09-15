@@ -5,8 +5,8 @@ public class Board : MonoBehaviour
     [SerializeField] private GameObject tilePrefab;
     [SerializeField] private Vector2Int boardSize = new Vector2Int(18, 9);
     [SerializeField] private int tileSize = 1;
-    private Vector2 offset;
     private GameObject[,] tiles;
+    private Vector2 offset;
     public Vector2Int BoardSize => boardSize;
     
     void Awake()

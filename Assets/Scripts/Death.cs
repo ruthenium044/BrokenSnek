@@ -5,7 +5,6 @@ public class Death : MonoBehaviour
 {
     [SerializeField] private UserInterface userInterface;
     [SerializeField] private BloodBoard bloodBoard;
-    private AudioController audioController;
     private bool gameOver = false;
     private float timer = 3f;
     
@@ -17,16 +16,16 @@ public class Death : MonoBehaviour
         {
             gameOver = true;
             StopAllCoroutines();
+            
             bloodBoard.AddBlood(transform.position);
-        
             GetComponent<AudioController>().Play(0);
+            userInterface.GameOver();
             StartCoroutine(ReloadScene());
         }
     }
 
     private IEnumerator ReloadScene()
     {
-        userInterface.GameOver();
         Time.timeScale = 0;
         yield return new WaitForSecondsRealtime(timer);
         userInterface.RestartButton();

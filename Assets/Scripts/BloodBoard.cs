@@ -18,7 +18,7 @@ public class BloodBoard : MonoBehaviour
 
     public void AddBlood(Vector3 pos)
     { 
-        GameObject temp = Instantiate(blood, pos, quaternion.identity);
+        GameObject temp = Instantiate(blood, pos, Quaternion.identity);
         DontDestroyOnLoad(temp);
         bloodBoard.Add(temp);
     }

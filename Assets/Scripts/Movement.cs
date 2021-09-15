@@ -7,6 +7,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private Board board;
     private Body body;
     private Death death;
+    private GridCollision gridCollision;
     
     public static readonly List<Vector2Int> directions = new List<Vector2Int>
             {Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right};
@@ -19,6 +20,7 @@ public class Movement : MonoBehaviour
     {
         body = GetComponent<Body>();
         death = GetComponent<Death>();
+        gridCollision = GetComponent<GridCollision>();
     }
 
     public void OnInput(Vector2Int dir)
@@ -33,6 +35,7 @@ public class Movement : MonoBehaviour
     public IEnumerator MoveOneStep()
     {
         Move(inputDirection);
+        gridCollision.Collide(board, body, death);
         yield return new WaitForSeconds(timeBetweenSteps);
         StartCoroutine(MoveOneStep());
     }
@@ -55,7 +58,7 @@ public class Movement : MonoBehaviour
             body.MoveBodyParts();
         }
         transform.position = position;
-        body.RotateBodyParts();
+        body.RotateBodyParts(this);
     }
 
     private bool IsOutOfBounds(Vector2Int pos)
