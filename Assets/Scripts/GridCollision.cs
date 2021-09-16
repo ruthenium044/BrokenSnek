@@ -16,7 +16,7 @@ public class GridCollision : MonoBehaviour
         if (CheckPlayerPosition(board,board.WorldToGrid(food.transform.position)) && food.IsVisible)
         {
             GetComponent<AudioController>().Play(Random.Range(1, 4));
-            userInterface.Score += 1;
+            userInterface.IncreaseScore();
             food.MakeVisible(false);
             body.AddBodyParts();
         }

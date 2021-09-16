@@ -3,8 +3,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private Movement movement;
-    private AudioController audioController;
-   
+
     private void Start()
     {
         movement = GetComponent<Movement>();

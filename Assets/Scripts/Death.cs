@@ -19,14 +19,15 @@ public class Death : MonoBehaviour
             
             bloodBoard.AddBlood(transform.position);
             GetComponent<AudioController>().Play(0);
+            
             userInterface.GameOver();
-            StartCoroutine(ReloadScene());
+            Time.timeScale = 0;
+            StartCoroutine(WaitForReload());
         }
     }
 
-    private IEnumerator ReloadScene()
+    private IEnumerator WaitForReload()
     {
-        Time.timeScale = 0;
         yield return new WaitForSecondsRealtime(timer);
         userInterface.RestartButton();
     }

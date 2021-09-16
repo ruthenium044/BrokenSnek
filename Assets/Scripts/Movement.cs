@@ -9,12 +9,11 @@ public class Movement : MonoBehaviour
     private Death death;
     private GridCollision gridCollision;
     
+    [SerializeField] private float timeBetweenSteps = 0.4f;
     public static readonly List<Vector2Int> directions = new List<Vector2Int>
             {Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right};
     private Vector2Int direction;
     private Vector2Int inputDirection;
-
-    private float timeBetweenSteps = 0.4f;
 
     private void Awake()
     {

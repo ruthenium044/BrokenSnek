@@ -10,12 +10,6 @@ public class UserInterface : MonoBehaviour
     private string key = "Highscore";
     private int highScore = 0;
     private int score = 0;
-    
-    public int Score
-    {
-        get => score;
-        set => score = value;
-    }
 
     private void Awake()
     {
@@ -33,7 +27,12 @@ public class UserInterface : MonoBehaviour
             highScore = score;
         }
         highScoreText.text = "High score: " + highScore;
-        scoreText.text = "Score: " + Score;
+        scoreText.text = "Score: " + score;
+    }
+
+    public void IncreaseScore()
+    {
+        score += 1;
     }
     
     public void RestartButton()
