@@ -380,6 +380,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3357750371399091593, guid: 5f375c4ef54be784883fa40f7331d1a2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 323496050}
+    - target: {fileID: 3357750371399091593, guid: 5f375c4ef54be784883fa40f7331d1a2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RestartButton
+      objectReference: {fileID: 0}
     - target: {fileID: 3357750371837903784, guid: 5f375c4ef54be784883fa40f7331d1a2, type: 3}
       propertyPath: m_Camera
       value: 
@@ -501,6 +509,10 @@ PrefabInstance:
       propertyPath: board
       value: 
       objectReference: {fileID: 283234917}
+    - target: {fileID: 8266182455983637808, guid: 17a81a46ac906e04a8d87a1ceb1e62c7, type: 3}
+      propertyPath: timeBetweenSteps
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 8266182455983637809, guid: 17a81a46ac906e04a8d87a1ceb1e62c7, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -562,6 +574,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8629804202902218423, guid: 1ea1e15f493f39d46abb5f416aef6874, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8629804203406130848, guid: 1ea1e15f493f39d46abb5f416aef6874, type: 3}
       propertyPath: m_Name
       value: MenuCanvas
